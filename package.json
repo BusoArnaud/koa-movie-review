@@ -2,24 +2,22 @@
   "name": "koa-movie-review",
   "version": "1.0.0",
   "description": "API for a Movie review site",
-  "main": "index.js",
-  "scripts": {
-    "dev": "backpack dev",
-    "build": "backpack build"
+  "keywords": [],
+  "homepage": "https://github.com/etienne-dldc/koa-movie-review#readme",
+  "bugs": {
+    "url": "https://github.com/etienne-dldc/koa-movie-review/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/etienne-dldc/koa-movie-review.git"
   },
-  "keywords": [],
-  "author": "Etienne Dldc",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/etienne-dldc/koa-movie-review/issues"
-  },
-  "homepage": "https://github.com/etienne-dldc/koa-movie-review#readme",
-  "devDependencies": {
-    "backpack-core": "^0.8.4"
+  "author": "Etienne Dldc",
+  "main": "index.js",
+  "scripts": {
+    "build": "backpack build",
+    "dev": "backpack dev",
+    "test": "jest"
   },
   "dependencies": {
     "@koa/cors": "^3.1.0",
@@ -37,5 +35,20 @@
     "nanoid": "^3.1.12",
     "sqlite3": "^5.0.0",
     "zod": "^1.11.8"
+  },
+  "devDependencies": {
+    "babel-jest": "^26.3.0",
+    "backpack-core": "^0.8.4",
+    "jest-cli": "^26.4.2",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "globals": {
+      "__DEV__": true
+    }
   }
 }

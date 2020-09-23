@@ -1,5 +1,4 @@
 import Router from '@koa/router';
-import { movieExist, insertReview, updateMovie, findMovieReviews, updateReview } from '../database';
 import { zodBodyValidator } from '../middlewares/zodBodyValidator';
 import { zodQueryValidator } from '../middlewares/zodQueryValidator';
 import { authenticated } from '../middlewares/authenticated';
@@ -21,10 +20,10 @@ reviewsRouter.post(
   ),
   async (ctx) => {
     const { movie_id, author, rating, comment } = ctx.request.body;
-    if (!(await movieExist(movie_id))) {
+    if (!(await ctx.db.movieExist(movie_id))) {
       return ctx.throw(404, 'Movie not found');
     }
-    const review = await insertReview(movie_id, author, rating, comment);
+    const review = await ctx.db.insertReview(movie_id, author, rating, comment);
     ctx.body = review;
   }
 );
@@ -45,7 +44,7 @@ reviewsRouter.put(
     if (allUndefined(author, rating, comment)) {
       return ctx.throw(400, 'Empty update');
     }
-    const review = await updateReview(review_id, { author, rating, comment });
+    const review = await ctx.db.updateReview(review_id, { author, rating, comment });
     ctx.body = review;
   }
 );
@@ -55,7 +54,7 @@ reviewsRouter.get(
   zodQueryValidator(z.object({ movie_id: z.string().uuid() })),
   async (ctx) => {
     const { movie_id } = ctx.request.query;
-    const reviews = await findMovieReviews(movie_id);
+    const reviews = await ctx.db.findMovieReviews(movie_id);
     ctx.body = reviews;
   }
 );

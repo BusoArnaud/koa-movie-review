@@ -1,12 +1,11 @@
-import { knex, SQLITE_FILE_PATH } from './connection';
 import fse from 'fs-extra';
 import path from 'path';
 import uuid from '@lukeed/uuid';
 
-export async function setupDatabase() {
-  const dbExist = fse.existsSync(SQLITE_FILE_PATH);
+export async function setupDatabase(knex, filepath) {
+  const dbExist = fse.existsSync(filepath);
 
-  await fse.ensureDir(path.dirname(SQLITE_FILE_PATH));
+  await fse.ensureDir(path.dirname(filepath));
 
   const hasMovies = await knex.schema.hasTable('movies');
   if (!hasMovies) {

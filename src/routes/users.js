@@ -1,6 +1,6 @@
+import * as z from 'zod';
 import Router from '@koa/router';
 import { zodBodyValidator } from '../middlewares/zodBodyValidator';
-import * as z from 'zod';
 import { signup } from '../logic/signup';
 import { login } from '../logic/login';
 import { authenticated } from '../middlewares/authenticated';
@@ -18,7 +18,7 @@ usersRouter.post(
   ),
   async (ctx) => {
     const { username, password, name } = ctx.request.body;
-    ctx.body = await signup(username, password, name);
+    ctx.body = await signup(ctx.db, username, password, name);
   }
 );
 
@@ -32,7 +32,7 @@ usersRouter.post(
   ),
   async (ctx) => {
     const { username, password } = ctx.request.body;
-    ctx.body = await login(username, password);
+    ctx.body = await login(ctx.db, username, password);
   }
 );
 

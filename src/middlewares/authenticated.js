@@ -1,5 +1,3 @@
-import { findUserByToken } from '../database';
-
 export async function authenticated(ctx, next) {
   // get the authorization header
   const authHeader = ctx.request.get('Authorization');
@@ -10,7 +8,7 @@ export async function authenticated(ctx, next) {
   if (!type || !bearerToken || type !== 'Bearer') {
     return ctx.throw(401, 'Invalid Authorization header');
   }
-  const user = await findUserByToken(bearerToken);
+  const user = await ctx.db.findUserByToken(bearerToken);
   if (!user) {
     return ctx.throw(401, 'Invalid token');
   }
