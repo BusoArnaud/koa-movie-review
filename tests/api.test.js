@@ -49,7 +49,7 @@ describe('API', () => {
     ]);
   });
 
-  it('should login the user', async () => {
+  it('should return the token when login', async () => {
     await db.knex.table('users').insert([
       {
         user_id: '2d43c86c-76a9-4566-a107-09d25d56fad3',
@@ -63,6 +63,23 @@ describe('API', () => {
       .post('/users/login')
       .send({ username: 'etienne', password: 'yolo' })
       .expect(200);
+
     expect(res.body.token).toBe('NDMU1Dx97LxOpCOe7wE86');
+  });
+
+  it('should return 403 if wrong password', async () => {
+    await db.knex.table('users').insert([
+      {
+        user_id: '2d43c86c-76a9-4566-a107-09d25d56fad3',
+        username: 'etienne',
+        token: 'NDMU1Dx97LxOpCOe7wE86',
+        password: '$2b$10$R6/eL5r6SrXSl7Xj5Gnq7.cchmefYWWyaB6182/KAkrqIARm8qWGW',
+        name: 'Etienne',
+      },
+    ]);
+    await supertest(server)
+      .post('/users/login')
+      .send({ username: 'etienne', password: 'oops' })
+      .expect(403);
   });
 });
