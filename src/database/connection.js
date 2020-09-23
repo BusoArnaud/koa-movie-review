@@ -1,6 +1,4 @@
 import Knex from 'knex';
-// import { envs } from '../logic/envs';
-// import path from 'path';
 
 export function createKnex(filePath) {
   return Knex({

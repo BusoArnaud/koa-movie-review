@@ -1,4 +1,3 @@
-// import { knex } from './connection';
 import uuid from '@lukeed/uuid';
 
 export async function insertMovie(knex, title, year, poster_url) {
