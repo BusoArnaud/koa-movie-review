@@ -20,11 +20,3 @@ export async function createDatabase(filePath) {
     },
   };
 }
-
-export async function findUserByUsername(username) {
-  return knex.table('users').where('username', username).first();
-}
-
-export async function findUserByToken(token) {
-  return knex.table('users').where('token', token).first();
-}

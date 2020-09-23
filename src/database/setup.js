@@ -1,6 +1,7 @@
 import fse from 'fs-extra';
 import path from 'path';
 import uuid from '@lukeed/uuid';
+import { envs } from '../logic/envs';
 
 export async function setupDatabase(knex, filepath) {
   const dbExist = fse.existsSync(filepath);
@@ -39,7 +40,9 @@ export async function setupDatabase(knex, filepath) {
     });
   }
 
-  if (dbExist === false) {
+  const isTest = envs.NODE_ENV === 'test';
+
+  if (isTest === false && dbExist === false) {
     // populate with init data
     const movies = [
       {
