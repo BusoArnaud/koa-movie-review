@@ -11,6 +11,4 @@ envFiles.forEach((path) => {
   dotenvExpand(dotenv.config({ path }));
 });
 
-export function setup() {
-  return require('./app').main;
-}
+export const main = require('./app').main;

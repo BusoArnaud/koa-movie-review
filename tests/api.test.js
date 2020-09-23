@@ -1,9 +1,7 @@
-import { setup } from '../src/setup';
+import { main } from '../src/setup';
 import supertest from 'supertest';
 import fse from 'fs-extra';
 import path from 'path';
-
-const main = setup();
 
 describe('API', () => {
   let server, db;
